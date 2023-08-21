@@ -1,0 +1,20 @@
+[package]
+name = "cellular_automata"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bytemuck = "*"
+handlebars = "4.3.7"
+minifb = "*"
+pollster = "*"
+rand = "*"
+serde_json = "1.0.105"
+wgpu = "*"
+
+[profile.release]
+# leave symbols in
+debug = "full"
+
