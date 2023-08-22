@@ -1,4 +1,4 @@
-use crate::{nca::NeuralCellularAutomata, automata::Automata, ui::UI};
+use crate::{NeuralCellularAutomata, Automata, UI};
 
 #[derive(Debug)]
 pub struct DeepNeuralCellularAutomata

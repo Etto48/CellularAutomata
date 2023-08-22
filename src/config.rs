@@ -1,3 +1,5 @@
+use crate::Filter;
+
 #[derive(Debug, Clone)]
 pub enum Preset
 {
@@ -7,8 +9,10 @@ pub enum Preset
     Rainbows,
     Ghosts,
     Blur,
-    NCA{filter: [[f32;3];3], activation: String, color_filter: String},
-    DNCA{layers: Vec<([[f32;3];3],String,String)>},
+    Blur2,
+    Cells,
+    NCA{filter: Filter, activation: String, color_filter: String},
+    DNCA{layers: Vec<(Filter,String,String)>},
     Custom{shader: String},
     Test,
 }
@@ -97,23 +101,7 @@ impl Config
                         "test" => Preset::Test,
                         _ => {
                             let mut parts = value.split(',');
-                            let filter = [
-                                [
-                                    parts.next().unwrap().parse().unwrap(),
-                                    parts.next().unwrap().parse().unwrap(),
-                                    parts.next().unwrap().parse().unwrap(),
-                                ],
-                                [
-                                    parts.next().unwrap().parse().unwrap(),
-                                    parts.next().unwrap().parse().unwrap(),
-                                    parts.next().unwrap().parse().unwrap(),
-                                ],
-                                [
-                                    parts.next().unwrap().parse().unwrap(),
-                                    parts.next().unwrap().parse().unwrap(),
-                                    parts.next().unwrap().parse().unwrap(),
-                                ],
-                            ];
+                            let filter = Filter::from_str(parts.next().unwrap());
                             let activation = parts.next().unwrap().to_string();
                             let color_filter = parts.next().unwrap().to_string();
                             Preset::NCA{filter, activation, color_filter}

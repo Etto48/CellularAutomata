@@ -5,3 +5,5 @@ pub mod test;
 pub mod ghosts;
 pub mod worms2;
 pub mod blur;
+pub mod blur2;
+pub mod cells;

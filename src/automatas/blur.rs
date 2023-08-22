@@ -1,13 +1,9 @@
-use crate::nca::NeuralCellularAutomata;
+use crate::{NeuralCellularAutomata, Filter};
 
 pub fn new(size: (usize, usize)) -> NeuralCellularAutomata
 {
     NeuralCellularAutomata::new(
-        [
-            [1.0/16.0,1.0/8.0,1.0/16.0],
-            [1.0/8.0,1.0/4.0,1.0/8.0],
-            [1.0/16.0,1.0/8.0,1.0/16.0]
-        ],
+        Filter::new_gaussian(3, 0.72),
         include_str!("../shaders/activations/linear.wgsl"),
         include_str!("../shaders/color_filters/gray.wgsl"),
         size)

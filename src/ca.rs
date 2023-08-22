@@ -1,4 +1,4 @@
-use crate::automata::Automata;
+use crate::Automata;
 use pollster::FutureExt;
 
 #[derive(Debug)]

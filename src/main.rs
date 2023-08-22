@@ -7,13 +7,13 @@ use cellular_automata::{
         Preset,
         SkipMode,
         Initialization, Pencil, Shape
-    }, dnca::DeepNeuralCellularAutomata, automatas::{conway, worms, worms2, rainbows, ghosts, blur, test}, ca::CellularAutomata};
+    }, dnca::DeepNeuralCellularAutomata, automatas::{conway, worms, worms2, rainbows, ghosts, blur, test, blur2, cells}, ca::CellularAutomata};
 
 fn main() {
     let config = Config{
         size: (800,600),
         max_fps: Some(120.0),
-        preset: Preset::Worms2,
+        preset: Preset::Cells,
         skip_frames: SkipMode::Odd,
         initialization: Initialization::Random,
         pencil: Pencil {
@@ -32,13 +32,15 @@ fn main() {
         Preset::Rainbows => Box::new(rainbows::new(ui.get_size())),
         Preset::Ghosts => Box::new(ghosts::new(ui.get_size())),
         Preset::Blur => Box::new(blur::new(ui.get_size())),
+        Preset::Blur2 => Box::new(blur2::new(ui.get_size())),
+        Preset::Cells => Box::new(cells::new(ui.get_size())),
         Preset::NCA{filter, activation, color_filter} => Box::new(NeuralCellularAutomata::new(filter, activation.as_str(), color_filter.as_str(), ui.get_size())),
         Preset::DNCA{layers} => Box::new(DeepNeuralCellularAutomata::new(layers.into_iter().map(|(filter, activation, color_filter)| NeuralCellularAutomata::new(filter, activation.as_str(), color_filter.as_str(), ui.get_size())).collect())),
         Preset::Custom{shader}=> Box::new(CellularAutomata::new(shader.as_str(),ui.get_size())),
         Preset::Test => Box::new(test::new(ui.get_size())),
     };
 
-    //let mut nca = nca;
+    //let mut nca = cells::new(ui.get_size());
 
     let skip_frames = config.skip_frames != SkipMode::None;
     let mut skip_this_frame = match config.skip_frames {
