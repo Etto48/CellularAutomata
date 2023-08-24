@@ -1,6 +1,9 @@
 fn main(@builtin(global_invocation_id) global_id : vec3<u32>) {
     let x = i32(global_id.x);
     let y = i32(global_id.y);
+    if (x >= i32(textureDimensions(output_texture).x) || y >= i32(textureDimensions(output_texture).y)) {
+        return;
+    }
     let size = vec2<u32>(textureDimensions(input_texture));
     var filter_data = array<f32,{{filter_data_len}}>({{filter}});
     let dx = {{filter_size}};
